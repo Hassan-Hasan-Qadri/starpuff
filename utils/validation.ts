@@ -29,13 +29,15 @@ export const commonValidations = {
     .string()
     .min(8, "Password must be at least 8 characters long")
     .max(128, "Password must be no more than 128 characters")
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-    )
+    // .regex(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+    //   "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    // )
     .refine(
       (password) => {
         // Check for common weak passwords
+            console.log(password);
+
         const commonPasswords = [
           "password", "123456", "qwerty", "abc123", "password123",
           "admin", "letmein", "welcome", "monkey", "dragon"
@@ -44,7 +46,6 @@ export const commonValidations = {
       },
       "Password is too common, please choose a stronger password"
     ),
-
   // Request size validation
   validateRequestSize: (contentLength: number | null) => {
     const MAX_REQUEST_SIZE = 1024 * 1024; // 1MB limit
